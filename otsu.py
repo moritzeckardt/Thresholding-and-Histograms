@@ -1,17 +1,28 @@
 import numpy as np
-#
+
+
 # NO OTHER IMPORTS ALLOWED
-#
 
 
+# Create histogram of an greyscale image
 def create_greyscale_histogram(img):
     """
     returns a histogram of the given image
     :param img: 2D image in greyscale [0, 255]
     :return: np.ndarray (256,) with absolute counts for each possible pixel value
     """
-    # TODO
-    pass
+    # OPTION 1
+    # Initialize an histogram of zeros with 256 elements
+    hist = np.zeros(256, dtype=np.int32)
+
+    # Update bins in the histogram by looping through all pixel values
+    for pixel_value in np.nditer(img):
+        hist[pixel_value] += 1
+
+    # OPTION 2
+    # hist, _ = np.histogram(img, bins=range(257))
+
+    return hist
 
 
 def binarize_threshold(img, t):
@@ -62,13 +73,13 @@ def calculate_otsu_threshold(hist):
 
     # TODO loop through all possible thetas
 
-        # TODO compute p0 and p1 using the helper function
+    # TODO compute p0 and p1 using the helper function
 
-        # TODO compute mu and m1 using the helper function
+    # TODO compute mu and m1 using the helper function
 
-        # TODO compute variance
+    # TODO compute variance
 
-        # TODO update the threshold
+    # TODO update the threshold
     pass
 
 

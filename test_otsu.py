@@ -1,7 +1,7 @@
-'''
+"""
 Created on 22.10.2020
 @author: Charly, Max
-'''
+"""
 
 import unittest
 import cv2
@@ -85,6 +85,7 @@ class TestOtsu(unittest.TestCase):
         self.assertIsInstance(bin_patch, np.ndarray)
         self.assertTrue((bin_patch[90:110] == 255).all())
         self.assertEqual(bin_patch[50, 50], 0)
+
 
 if __name__ == '__main__':
     unittest.main()

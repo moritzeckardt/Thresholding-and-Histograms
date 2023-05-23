@@ -1,9 +1,9 @@
-'''
+"""
 Created on 25.11.2017
 Modified on 05.12.2020
 
 @author: Daniel, Max, Charly, Mathias
-'''
+"""
 import cv2
 import matplotlib.pyplot as plt
 from otsu import otsu

@@ -47,12 +47,12 @@ def p_helper(hist, theta: int):
     :param theta: current theta
     :return: p0, p1
     """
-    # Calculate p0 and p1 by slicing the histogram
+    # Calculate p0 and p1
     total_pixels = np.sum(hist)
     p0 = np.sum(hist[:theta]) / total_pixels
     p1 = np.sum(hist[theta:]) / total_pixels
 
-    # Return p0 and p1
+    # Return probabilities
     return p0, p1
 
 

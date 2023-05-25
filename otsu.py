@@ -19,10 +19,12 @@ def create_greyscale_histogram(img):
     for pixel_value in np.nditer(img):
         hist[pixel_value] += 1
 
+    # Return histogram
+    return hist
+
     # OPTION 2
     # hist, _ = np.histogram(img, bins=range(257))
-
-    return hist
+    # return hist
 
 
 def binarize_threshold(img, t):
@@ -36,6 +38,7 @@ def binarize_threshold(img, t):
     pass
 
 
+# Compute p0 and p1 using the histogram and the current theta
 def p_helper(hist, theta: int):
     """
     Compute p0 and p1 using the histogram and the current theta,
@@ -44,7 +47,13 @@ def p_helper(hist, theta: int):
     :param theta: current theta
     :return: p0, p1
     """
-    pass
+    # Calculate p0 and p1 by slicing the histogram
+    total_pixels = np.sum(hist)
+    p0 = np.sum(hist[:theta]) / total_pixels
+    p1 = np.sum(hist[theta:]) / total_pixels
+
+    # Return p0 and p1
+    return p0, p1
 
 
 def mu_helper(hist, theta, p0, p1):

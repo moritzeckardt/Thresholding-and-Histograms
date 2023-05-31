@@ -1,27 +1,27 @@
-# Implement the histogram equalization in this file
-import cv2
-import numpy as np
+from PIL import Image
 
 # Load the image
-image = cv2.imread('hello.png', cv2.IMREAD_GRAYSCALE)
+image = Image.open("hello.png").convert("L")
+width, height = image.size
+pixels = list(image.getdata())
 
-# Compute the histogram
-histogram = np.bincount(image.flatten(), minlength=256)
+histogram = [0] * 256
+for pixel in pixels:
+    histogram[pixel] += 1
 
-# Compute the cumulative distribution function (CDF)
-cdf = np.cumsum(histogram)
+cdf = [0] * 256
+cdf[0] = histogram[0]
+for i in range(1, 256):
+    cdf[i] = cdf[i-1] + histogram[i]
 
-# Normalize the CDF
-cdf_normalized = (cdf - cdf.min()) / (cdf.max() - cdf.min())
+min_cdf = min(cdf)
+max_cdf = max(cdf)
 
-# Apply histogram equalization to each pixel
-height, width = image.shape
-total_pixels = height * width
-for i in range(height):
-    for j in range(width):
-        old_pixel_value = image[i, j]
-        new_pixel_value = int(cdf_normalized[old_pixel_value] * 255)
-        image[i, j] = new_pixel_value
+output_pixels = []
+for pixel in pixels:
+    new_pixel = int((cdf[pixel] - min_cdf) / (width * height - min_cdf) * 255)
+    output_pixels.append(new_pixel)
 
-# Save the result
-cv2.imwrite('kitty.png', image)
+output_image = Image.new("L", (width, height))
+output_image.putdata(output_pixels)
+output_image.save("kitty.png")
